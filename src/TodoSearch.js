@@ -6,14 +6,15 @@ import "./TodoSearch.css"
 
 
 
-function TodoSearch() {
+function TodoSearch({serchvalue,setSerchvalue}) {
 
-  
-const [serchvalue, setSerchvalue] = React.useState("");
+//  const serchvalue=props.serchvalue
+//  const setSerchvalue=props.setSerchvalue
+
 
 const onSearchValueChange=(event)=>{
-  console.log(event.target.value);
-  setSerchvalue(event.target.value)
+            console.log(event.target.value);
+            setSerchvalue(event.target.value)
 }
 
 
