@@ -2,6 +2,24 @@ import React from "react";
 import "./App.css";
 import { AppUI } from "./AppUI";
 
+function useItem(itemName_V1, initial_Items) {
+  if (JSON.parse(localStorage.getItem(itemName_V1) == null)) {
+    initial_Items = initial_Items;
+  } else {
+    initial_Items = JSON.parse(localStorage.getItem(itemName_V1));
+  }
+
+  const [items, setItems] = React.useState(initial_Items);
+
+  function setStorage(params) {
+    setItems(params);
+    localStorage.setItem(itemName_V1, JSON.stringify(params));
+    initial_Items = JSON.parse(localStorage.getItem(itemName_V1));
+  }
+
+  return [items, setStorage];
+}
+
 const tododefault = [
   { text: "desayunar", completed: true },
   { text: "almorzar", completed: false },
@@ -12,8 +30,8 @@ const tododefault = [
 ];
 
 function App() {
+  const [todos, setTodo] = useItem("todoinicial", tododefault);
   const [serchvalue, setSerchvalue] = React.useState("");
-  const [todos, setTodo] = React.useState(tododefault);
 
   const nCompleted = todos.filter((todos) => todos.completed).length;
   const nTodos = todos.length;
@@ -50,14 +68,13 @@ function App() {
 
   return (
     <AppUI
-          nTodos={nTodos} 
-          nCompleted={nCompleted}
-          serchvalue={serchvalue} 
-          setSerchvalue={setSerchvalue}
-          todoSearchx={todoSearchx}
-          fonComplete={fonComplete}
-          fonDelete={fonDelete}
-    
+      nTodos={nTodos}
+      nCompleted={nCompleted}
+      serchvalue={serchvalue}
+      setSerchvalue={setSerchvalue}
+      todoSearchx={todoSearchx}
+      fonComplete={fonComplete}
+      fonDelete={fonDelete}
     ></AppUI>
   );
 }
