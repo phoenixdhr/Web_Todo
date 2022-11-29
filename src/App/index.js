@@ -1,4 +1,3 @@
-
 import "./App.css";
 import { AppUI } from "./AppUI";
 import { TodoProvider } from "../TodoContext";
@@ -14,11 +13,10 @@ const tododefault = [
 
 function App() {
   return (
-  <TodoProvider>
-    <AppUI/>
-  </TodoProvider>
-  )
-  
+    <TodoProvider>
+      <AppUI />
+    </TodoProvider>
+  );
 }
 
 export default App;
