@@ -1,23 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { AppUI } from "./AppUI";
 
 function useItem(itemName_V1, initial_Items) {
-  if (JSON.parse(localStorage.getItem(itemName_V1) == null)) {
-    initial_Items = initial_Items;
-  } else {
-    initial_Items = JSON.parse(localStorage.getItem(itemName_V1));
-  }
-
   const [items, setItems] = React.useState(initial_Items);
+  const [loading, setloading] = React.useState(true);
+  const [errores, seterrores] = React.useState(false);
 
-  function setStorage(params) {
-    setItems(params);
-    localStorage.setItem(itemName_V1, JSON.stringify(params));
-    initial_Items = JSON.parse(localStorage.getItem(itemName_V1));
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      try {
+        if (JSON.parse(localStorage.getItem(itemName_V1) == null)) {
+          initial_Items = initial_Items;
+        } else {
+          initial_Items = JSON.parse(localStorage.getItem(itemName_V1));
+        }
+        setloading(false);
+        setItems(initial_Items)
 
-  return [items, setStorage];
+      } catch (error) {
+        seterrores(error);
+      }
+    }, 1000);
+  }, []);
+
+  const setStorage = (params) => {
+    
+    try {
+      setItems(params);
+      localStorage.setItem(itemName_V1, JSON.stringify(params));
+      initial_Items = JSON.parse(localStorage.getItem(itemName_V1));
+    } catch (error) {
+      seterrores(error)
+    }
+    
+
+
+
+  };
+
+  return { items, setStorage, loading, errores };
 }
 
 const tododefault = [
@@ -30,7 +52,13 @@ const tododefault = [
 ];
 
 function App() {
-  const [todos, setTodo] = useItem("todoinicial", tododefault);
+  const {
+    items: todos,
+    setStorage: setTodo,
+    loading,
+    errores,
+  } = useItem("todoinicial", []);
+
   const [serchvalue, setSerchvalue] = React.useState("");
 
   const nCompleted = todos.filter((todos) => todos.completed).length;
@@ -68,6 +96,8 @@ function App() {
 
   return (
     <AppUI
+      loading={loading}
+      errores={errores}
       nTodos={nTodos}
       nCompleted={nCompleted}
       serchvalue={serchvalue}

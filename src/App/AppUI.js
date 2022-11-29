@@ -5,8 +5,12 @@ import TodoList from "../TodoList";
 import CreateTodoButton from "../CreateTodoButton";
 import TodoItems from "../TodoItems";
 
+
 function AppUI(
-    {nTodos, 
+    {
+    loading,
+    errores,
+    nTodos, 
     nCompleted,
     serchvalue, 
     setSerchvalue,
@@ -15,6 +19,9 @@ function AppUI(
     fonDelete,}
 
 ) {
+
+
+
   return (
     <>
       <TodoCounter 
@@ -24,6 +31,10 @@ function AppUI(
       <TodoSearch 
           serchvalue={serchvalue} 
           setSerchvalue={setSerchvalue} />
+        
+      {loading&&<h2>cargando...</h2>}
+      {errores&&<h2>Hubo un error🙁</h2>}
+      {(!loading&&todoSearchx)&&<h2>Crea tu primer ToDo 😉</h2>}
 
       <TodoList>
         {todoSearchx.map((todo) => (
