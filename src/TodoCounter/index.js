@@ -1,22 +1,21 @@
-import React from 'react'
-import "./TodoCounter.css"
+import React from "react";
+import "./TodoCounter.css";
+import { TodoContext } from "../TodoContext";
+import { useContext } from "react";
 
-
-const estilos={
+const estilos = {
   color: "red",
-  backgroundColor: "yelow"
-
+  backgroundColor: "yelow",
 };
 
-const TodoCounter = ({nTodos, nCompleted}) => {
-
+const TodoCounter = () => {
+  const { nTodos, nCompleted } = useContext(TodoContext);
 
   return (
-    <h2  className="TodoCounter">Has completado {nCompleted} de {nTodos} TODOs </h2>
-  )
-}
+    <h2 className="TodoCounter">
+      Has completado {nCompleted} de {nTodos} TODOs{" "}
+    </h2>
+  );
+};
 
-export {TodoCounter}
-
-
-
+export { TodoCounter };
