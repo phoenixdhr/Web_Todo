@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Web_Todo/static/css/main.a54933b3.css",
+    "main.js": "/Web_Todo/static/js/main.fa38d91c.js",
+    "index.html": "/Web_Todo/index.html",
+    "main.a54933b3.css.map": "/Web_Todo/static/css/main.a54933b3.css.map",
+    "main.fa38d91c.js.map": "/Web_Todo/static/js/main.fa38d91c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a54933b3.css",
+    "static/js/main.fa38d91c.js"
+  ]
+}
