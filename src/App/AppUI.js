@@ -6,11 +6,10 @@ import CreateTodoButton from "../CreateTodoButton";
 import TodoItems from "../TodoItems";
 import { TodoContext } from "../TodoContext";
 import useContext from "react";
-
-
+import { Portal } from "../Portal/Portal";
+import TodoForm from "../TodoForm/TodoForm";
 
 function AppUI() {
-
   const {
     loading,
     errores,
@@ -21,9 +20,9 @@ function AppUI() {
     todoSearchx,
     fonComplete,
     fonDelete,
+    fonAgregar,
+    agregartodoBotton,
   } = React.useContext(TodoContext);
-
-
 
   return (
     <>
@@ -34,7 +33,7 @@ function AppUI() {
       <TodoList>
         {loading && <h2>cargando...</h2>}
         {errores && <h2>Hubo un error🙁</h2>}
-        {!loading && !todoSearchx && <h2>Crea tu primer ToDo 😉</h2>}
+        {!loading && !todoSearchx.length && <h2>Crea tu primer ToDo 😉</h2>}
 
         {todoSearchx.map((todo) => (
           <TodoItems
@@ -46,6 +45,12 @@ function AppUI() {
           />
         ))}
       </TodoList>
+
+      {agregartodoBotton && (
+        <Portal>
+          <TodoForm />
+        </Portal>
+      )}
 
       <CreateTodoButton />
     </>

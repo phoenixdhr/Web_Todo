@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import React from "react";
 import { useItem } from "./useItem";
 
@@ -13,6 +13,7 @@ function TodoProvider(props) {
   } = useItem("todoinicial", []);
 
   const [serchvalue, setSerchvalue] = React.useState("");
+  const [agregartodoBotton, setagregartodoBotton] = useState(false);
 
   const nCompleted = todos.filter((todos) => todos.completed).length;
   const nTodos = todos.length;
@@ -47,6 +48,12 @@ function TodoProvider(props) {
     setTodo(nuevoTodos);
   };
 
+  const fAddTodo = (input) => {
+    const nuevoTodos = [...todos];
+    nuevoTodos.push({ text: input, completed: false });
+    setTodo(nuevoTodos);
+  };
+
   return (
     <TodoContext.Provider
       value={{
@@ -59,6 +66,9 @@ function TodoProvider(props) {
         todoSearchx,
         fonComplete,
         fonDelete,
+        fAddTodo,
+        agregartodoBotton,
+        setagregartodoBotton,
       }}
     >
       {props.children}
